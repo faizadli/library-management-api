@@ -1,0 +1,654 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Library Management API",
+    "version": "1.0.0",
+    "description": "API documentation for Library Management System"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "tags": [
+    {
+      "name": "Authentication"
+    },
+    {
+      "name": "Admin"
+    },
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Books"
+    },
+    {
+      "name": "Loans"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Register new user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegister"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User registered successfully"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Login user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get all books",
+        "responses": {
+          "200": {
+            "description": "List of books",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Book"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "summary": "Add new book",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Book created successfully"
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get book by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book details",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Books"],
+        "summary": "Update book",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Books"],
+        "summary": "Delete book",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book deleted successfully"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update user",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          }
+        }
+      }
+    },
+
+    "/loans": {
+      "get": {
+        "tags": ["Loans"],
+        "summary": "Get all loans",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of loans",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Loan"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Loans"],
+        "summary": "Create new loan",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoanCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Loan created successfully"
+          }
+        }
+      }
+    },
+
+    "/loans/{id}": {
+      "get": {
+        "tags": ["Loans"],
+        "summary": "Get loan by ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Loan details",
+            "schema": {
+              "$ref": "#/definitions/Loan"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Loans"],
+        "summary": "Update loan status",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoanUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Loan updated successfully"
+          }
+        }
+      }
+    },
+    "/admin": {
+      "get": {
+        "tags": ["Admin"],
+        "summary": "Get all admin users",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of admin users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AdminDetail"
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden - Admin only"
+          }
+        }
+      }
+    },
+
+    "/admin/{id}": {
+      "get": {
+        "tags": ["Admin"],
+        "summary": "Get admin by ID",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin details",
+            "schema": {
+              "$ref": "#/definitions/AdminDetail"
+            }
+          },
+          "403": {
+            "description": "Access forbidden - Admin only"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Admin"],
+        "summary": "Update admin",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin updated successfully"
+          },
+          "403": {
+            "description": "Access forbidden - Admin only"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Admin"],
+        "summary": "Delete admin",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin deleted successfully"
+          },
+          "403": {
+            "description": "Access forbidden - Admin only"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "isbn": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "shelf_location": {
+          "type": "string"
+        }
+      }
+    },
+
+    "UserRegister": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        }
+      },
+      "required": ["username", "password", "email", "full_name"]
+    },
+
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "user"]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+
+    "UserUpdate": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        }
+      }
+    },
+
+    "Loan": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "book_id": {
+          "type": "integer"
+        },
+        "loan_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "return_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["borrowed", "returned", "overdue"]
+        }
+      }
+    },
+
+    "LoanCreate": {
+      "type": "object",
+      "properties": {
+        "book_id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": ["book_id", "user_id", "due_date"]
+    },
+
+    "LoanUpdate": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["borrowed", "returned", "overdue"]
+        },
+        "return_date": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": ["status"]
+    }
+  }
+}

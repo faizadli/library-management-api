@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 require('dotenv').config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 // Import routes
 const adminRoutes = require('./src/routes/adminRoutes');
@@ -21,6 +23,9 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/books', bookRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/loans', loanRoutes);
+
+// Tambahkan ini sebelum route lainnya
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Root route
 app.get('/', (req, res) => {
