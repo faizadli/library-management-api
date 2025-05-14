@@ -14,12 +14,16 @@ const loanRoutes = require('./src/routes/loanRoutes');
 const app = express();
 
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false
+}));
 app.use(cors());
 app.use(express.json());
 
-// Swagger documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+// Swagger documentation - directly use the specs object
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
+  explorer: true
+}));
 
 // Routes
 app.use('/api/admin', adminRoutes);

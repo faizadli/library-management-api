@@ -1,0 +1,9 @@
+runtime: nodejs20 
+instance_class: F1 
+env_variables: 
+  NODE_ENV: "production"
+  JWT_SECRET: "1234567890"  
+  INSTANCE_CONNECTION_NAME: "latihan-457008:us-central1:faiz-db" 
+  DB_USER: "faiz" 
+  DB_PASSWORD: "615173l!" 
+  DB_NAME: "library_management"
