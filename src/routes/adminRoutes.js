@@ -5,36 +5,6 @@ const { authenticateToken } = require('../middleware/auth');
 
 /**
  * @swagger
- * components:
- *   schemas:
- *     Admin:
- *       type: object
- *       required:
- *         - name
- *         - email
- *         - password
- *       properties:
- *         id:
- *           type: integer
- *           description: The auto-generated id of the admin
- *         name:
- *           type: string
- *           description: The name of the admin
- *         email:
- *           type: string
- *           description: The email of the admin
- *         password:
- *           type: string
- *           description: The password of the admin
- *       example:
- *         id: 1
- *         name: John Doe
- *         email: john@example.com
- *         password: password123
- */
-
-/**
- * @swagger
  * /api/admin/register:
  *   post:
  *     summary: Register a new admin

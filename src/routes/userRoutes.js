@@ -5,31 +5,6 @@ const { authenticateToken } = require('../middleware/auth');
 
 /**
  * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - name
- *         - email
- *       properties:
- *         id:
- *           type: integer
- *           description: The auto-generated id of the user
- *         name:
- *           type: string
- *           description: The name of the user
- *         email:
- *           type: string
- *           description: The email of the user
- *       example:
- *         id: 1
- *         name: Jane Doe
- *         email: jane@example.com
- */
-
-/**
- * @swagger
  * /api/users:
  *   post:
  *     summary: Create a new user

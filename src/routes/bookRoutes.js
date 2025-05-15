@@ -5,36 +5,6 @@ const { authenticateToken } = require('../middleware/auth');
 
 /**
  * @swagger
- * components:
- *   schemas:
- *     Book:
- *       type: object
- *       required:
- *         - title
- *         - author
- *         - stock
- *       properties:
- *         id:
- *           type: integer
- *           description: The auto-generated id of the book
- *         title:
- *           type: string
- *           description: The title of the book
- *         author:
- *           type: string
- *           description: The author of the book
- *         stock:
- *           type: integer
- *           description: Available quantity of the book
- *       example:
- *         id: 1
- *         title: The Great Gatsby
- *         author: F. Scott Fitzgerald
- *         stock: 10
- */
-
-/**
- * @swagger
  * /api/books:
  *   post:
  *     summary: Create a new book
